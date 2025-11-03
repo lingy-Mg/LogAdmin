@@ -45,25 +45,102 @@ function handleSaveAlias(device) {
 </script>
 
 <style scoped>
+.device-dialog :deep(.el-dialog) {
+  background-color: #1e293b;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
 .device-dialog :deep(.el-dialog__header) {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+  color: #f1f5f9;
   padding: 16px;
   margin: 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .device-dialog :deep(.el-dialog__title) {
-  color: #fff;
+  color: #f1f5f9;
   font-size: 16px;
   font-weight: 700;
 }
 
 .device-dialog :deep(.el-dialog__headerbtn .el-dialog__close) {
+  color: #e2e8f0;
+}
+
+.device-dialog :deep(.el-dialog__headerbtn .el-dialog__close:hover) {
   color: #fff;
 }
 
 .device-dialog :deep(.el-dialog__body) {
   padding: 16px;
+  background-color: #1e293b;
+}
+
+.device-dialog :deep(.el-dialog__footer) {
+  background-color: #1e293b;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.device-dialog :deep(.el-table) {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.device-dialog :deep(.el-table th.el-table__cell) {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.device-dialog :deep(.el-table td.el-table__cell) {
+  border-color: #334155;
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.device-dialog :deep(.el-table tr) {
+  background-color: #0f172a;
+}
+
+.device-dialog :deep(.el-table--border) {
+  border-color: #334155;
+}
+
+.device-dialog :deep(.el-table--border::after),
+.device-dialog :deep(.el-table--border::before) {
+  background-color: #334155;
+}
+
+.device-dialog :deep(.el-table__inner-wrapper::before) {
+  background-color: #334155;
+}
+
+.device-dialog :deep(.el-input__wrapper) {
+  background-color: #1e293b;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2) inset;
+}
+
+.device-dialog :deep(.el-input__wrapper:hover) {
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4) inset;
+}
+
+.device-dialog :deep(.el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px #6366f1 inset !important;
+}
+
+.device-dialog :deep(.el-input__inner) {
+  color: #e2e8f0;
+}
+
+.device-dialog :deep(.el-input__inner::placeholder) {
+  color: #64748b;
+}
+
+.device-dialog :deep(.el-input-group__append) {
+  background-color: #334155;
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: none;
 }
 
 .device-manager {
@@ -78,6 +155,6 @@ function handleSaveAlias(device) {
   white-space: nowrap;
   font-family: 'Consolas', 'Monaco', monospace;
   font-size: 12px;
-  color: #409eff;
+  color: #a78bfa;
 }
 </style>

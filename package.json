@@ -10,6 +10,10 @@
     "build:frontend": "cd frontend && npm run build",
     "copy:dist": "node scripts/copy-dist.js",
     "start": "cd backend && npm start",
-    "clean": "node scripts/clean.js"
+    "clean": "node scripts/clean.js",
+    "deploy": "node scripts/deploy-auto.js",
+    "deploy:simple": "node scripts/deploy-simple.js",
+    "deploy:check": "node scripts/check-deploy.js",
+    "server": "node scripts/server.js"
   }
 }

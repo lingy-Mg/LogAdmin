@@ -109,9 +109,10 @@ const deviceAlias = computed(() => {
 .log-detail-panel {
   width: 480px;
   height: 100%;
-  background: #ffffff;
+  background: #1e293b;
   border-radius: 14px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+  border: 1px solid rgba(148, 163, 184, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -121,11 +122,12 @@ const deviceAlias = computed(() => {
 .detail-header {
   flex-shrink: 0;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+  color: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .detail-header h3 {
@@ -135,18 +137,19 @@ const deviceAlias = computed(() => {
 }
 
 .close-btn {
-  color: #fff !important;
+  color: #e2e8f0 !important;
   padding: 4px;
 }
 
 .close-btn:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(226, 232, 240, 0.1) !important;
 }
 
 .detail-content {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  background: #1e293b;
 }
 
 .detail-content::-webkit-scrollbar {
@@ -154,17 +157,17 @@ const deviceAlias = computed(() => {
 }
 
 .detail-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0f172a;
   border-radius: 3px;
 }
 
 .detail-content::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #475569;
   border-radius: 3px;
 }
 
 .detail-content::-webkit-scrollbar-thumb:hover {
-  background: #999;
+  background: #64748b;
 }
 
 .detail-section {
@@ -178,16 +181,16 @@ const deviceAlias = computed(() => {
 .section-title {
   font-size: 14px;
   font-weight: 700;
-  color: #4f46e5;
+  color: #a78bfa;
   margin: 0 0 12px 0;
   padding-bottom: 8px;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid #334155;
 }
 
 .detail-item {
   display: flex;
   padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #334155;
   align-items: flex-start;
 }
 
@@ -199,43 +202,43 @@ const deviceAlias = computed(() => {
   flex-shrink: 0;
   width: 100px;
   font-size: 13px;
-  color: #6b7280;
+  color: #94a3b8;
   font-weight: 600;
 }
 
 .item-value {
   flex: 1;
   font-size: 13px;
-  color: #1f2937;
+  color: #e2e8f0;
   word-break: break-all;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
 }
 
 .item-value.device-id {
-  color: #4f46e5;
+  color: #a78bfa;
   font-weight: 600;
 }
 
 .message-box {
   padding: 12px;
-  background: #f9fafb;
+  background: #0f172a;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #334155;
   font-size: 13px;
   line-height: 1.6;
-  color: #1f2937;
+  color: #cbd5e1;
   word-break: break-word;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
 }
 
 .json-box {
   padding: 12px;
-  background: #1e1e1e;
+  background: #0f172a;
   border-radius: 8px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #334155;
   font-size: 12px;
   line-height: 1.5;
-  color: #e6e6e6;
+  color: #cbd5e1;
   overflow-x: auto;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   margin: 0;
@@ -246,12 +249,12 @@ const deviceAlias = computed(() => {
 }
 
 .json-box::-webkit-scrollbar-track {
-  background: #2d2d2d;
+  background: #1e293b;
   border-radius: 3px;
 }
 
 .json-box::-webkit-scrollbar-thumb {
-  background: #555;
+  background: #475569;
   border-radius: 3px;
 }
 
@@ -264,25 +267,29 @@ const deviceAlias = computed(() => {
 }
 
 .level-badge.debug {
-  background: #eef2f7;
-  color: #64748b;
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid #475569;
 }
 
 .level-badge.info {
-  background: #ecfdf5;
-  color: #059669;
+  background: #064e3b;
+  color: #6ee7b7;
+  border: 1px solid #059669;
 }
 
 .level-badge.warn,
 .level-badge.warning {
-  background: #fef3c7;
-  color: #b45309;
+  background: #78350f;
+  color: #fcd34d;
+  border: 1px solid #f59e0b;
 }
 
 .level-badge.error,
 .level-badge.fatal {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: #7f1d1d;
+  color: #fca5a5;
+  border: 1px solid #dc2626;
 }
 
 .slide-fade-enter-active {

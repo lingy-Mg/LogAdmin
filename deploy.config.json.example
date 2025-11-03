@@ -1,0 +1,16 @@
+{
+  "host": "your-server.com",
+  "user": "root",
+  "port": 22,
+  "keyPath": "~/.ssh/id_rsa",
+  "remotePath": "/var/www/logadmin",
+  "dockerContainer": "admin_log",
+  "_comment": {
+    "host": "服务器地址或 IP",
+    "user": "SSH 登录用户名",
+    "port": "SSH 端口（默认 22）",
+    "keyPath": "SSH 私钥路径（支持 ~ 符号）",
+    "remotePath": "服务器上的部署目录",
+    "dockerContainer": "Docker 容器名称"
+  }
+}

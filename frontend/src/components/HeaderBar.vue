@@ -28,11 +28,6 @@
 
       <el-divider direction="vertical" />
 
-      <el-switch :model-value="autoScroll" @update:model-value="$emit('update:autoScroll', $event)" size="small"
-        inline-prompt :active-text="'自动滚动'" :inactive-text="'手动'" />
-
-      <el-button size="small" type="danger" plain @click="$emit('clear-logs')">🗑 清空</el-button>
-
       <el-tooltip :content="connected ? '已连接' : '未连接'" placement="bottom">
         <div class="connection" :class="{ connected }">
           <span class="dot"></span>
@@ -64,9 +59,10 @@ defineEmits(['scroll-to-bottom', 'show-device-manager', 'toggle-auto-scroll', 'c
   display: flex;
   align-items: center;
   padding: 0 16px;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: #fff;
-  box-shadow: 0 4px 18px rgba(39, 15, 106, 0.25);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #e2e8f0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .brand {
@@ -82,15 +78,17 @@ defineEmits(['scroll-to-bottom', 'show-device-manager', 'toggle-auto-scroll', 'c
   display: grid;
   place-items: center;
   border-radius: 10px;
-  background: rgba(255, 255, 255, .15);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   backdrop-filter: blur(6px);
   font-size: 18px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .logo-text {
   font-weight: 700;
   letter-spacing: .3px;
   font-size: 16px;
+  color: #f1f5f9;
 }
 
 .top-menu {
@@ -117,10 +115,11 @@ defineEmits(['scroll-to-bottom', 'show-device-manager', 'toggle-auto-scroll', 'c
   gap: 6px;
   padding: 4px 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
+  background: rgba(51, 65, 85, 0.6);
+  color: #e2e8f0;
   font-size: 12px;
   user-select: none;
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .connection .dot {
@@ -128,11 +127,12 @@ defineEmits(['scroll-to-bottom', 'show-device-manager', 'toggle-auto-scroll', 'c
   height: 8px;
   border-radius: 50%;
   background: #f59e0b;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, .15) inset;
+  box-shadow: 0 0 0 2px rgba(51, 65, 85, 0.3) inset;
 }
 
 .connection.connected .dot {
   background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
 }
 
 @media (max-width: 960px) {

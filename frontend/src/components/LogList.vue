@@ -106,8 +106,8 @@ defineExpose({
 }
 
 .log-line.active {
-  background: rgba(79, 70, 229, 0.15);
-  border-left: 3px solid #4f46e5;
+  background: rgba(139, 92, 246, 0.2);
+  border-left: 3px solid #8b5cf6;
   padding-left: 8px;
 }
 
@@ -118,7 +118,7 @@ defineExpose({
 }
 
 .log-time-part {
-  color: #808080;
+  color: #94a3b8;
   margin-right: 8px;
 }
 
@@ -128,20 +128,20 @@ defineExpose({
 }
 
 .log-device-part {
-  color: #4EC9B0;
+  color: #6ee7b7;
   font-weight: 700;
   margin-right: 8px;
   cursor: help;
 }
 
 .log-message-part {
-  color: #e6e6e6;
+  color: #cbd5e1;
   word-break: break-all;
 }
 
 .log-message-part :deep(mark) {
-  background: #ffd700;
-  color: #000;
+  background: #fbbf24;
+  color: #1e293b;
   padding: 0 4px;
   border-radius: 3px;
   font-weight: 700;
@@ -151,5 +151,13 @@ defineExpose({
   display: grid;
   place-items: center;
   height: 100%;
+}
+
+.empty :deep(.el-empty__description) {
+  color: #94a3b8;
+}
+
+.empty :deep(.el-empty__image svg) {
+  fill: #475569;
 }
 </style>

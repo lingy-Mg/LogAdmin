@@ -38,6 +38,11 @@ backend/public/
 .env.local
 .env.*.local
 
+# 部署配置文件（包含敏感信息）
+deploy.config.json
+*.tar.gz
+logadmin-deploy.tar.gz
+
 # 持久化数据文件（日志和设备别名）
 backend/logs-data.json
 backend/device-aliases.json
