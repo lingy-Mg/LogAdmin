@@ -12,7 +12,7 @@
     <!-- 日志显示区 -->
     <main class="log-area">
       <LogList ref="logListRef" :logs="filteredLogs" :selected-log="selectedLog" :device-aliases="deviceAliases"
-        :keyword="filters.keyword" @select="selectLog" />
+        :keyword="filters.keyword" :has-detail="!!selectedLog" @select="selectLog" />
 
       <!-- 右侧详情面板 -->
       <LogDetail :log="selectedLog" :device-aliases="deviceAliases" @close="unselectLog" />

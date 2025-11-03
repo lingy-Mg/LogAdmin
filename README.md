@@ -31,20 +31,37 @@
 
 ```
 LogAdmin/
-├── backend/                 # 后端服务
-│   ├── server.js           # 主服务器文件
+├── backend/                      # 后端服务（已模块化重构 ✨）
+│   ├── src/                      # 源代码目录
+│   │   ├── config/              # 配置模块
+│   │   ├── models/              # 数据模型
+│   │   ├── services/            # 业务服务层
+│   │   ├── routes/              # 路由模块
+│   │   ├── websocket/           # WebSocket 模块
+│   │   ├── utils/               # 工具函数
+│   │   ├── app.js               # Express 应用配置
+│   │   └── index.js             # 应用入口
+│   ├── server.js                # 旧版服务器（保留）
+│   ├── public/                  # 前端构建产物
 │   ├── package.json
-│   ├── logs-data.json      # 日志数据（运行时生成）
-│   └── device-aliases.json # 设备别名（运行时生成）
-├── frontend/               # 前端应用
+│   ├── logs-data.json           # 日志数据（运行时生成）
+│   └── device-aliases.json      # 设备别名（运行时生成）
+├── frontend/                     # 前端应用
 │   ├── src/
-│   │   ├── App.vue        # 主应用组件
-│   │   └── main.js        # 入口文件
+│   │   ├── App.vue              # 主应用组件
+│   │   └── main.js              # 入口文件
 │   ├── index.html
 │   ├── vite.config.js
 │   └── package.json
+├── scripts/                      # 构建脚本
+├── prompts/                      # 开发提示词
+├── ARCHITECTURE.md               # 架构设计文档 📚
+├── PROJECT_STRUCTURE.md          # 项目结构详解 📚
+├── QUICK_REFERENCE.md            # 快速参考指南 📚
 └── README.md
 ```
+
+> 💡 **新架构说明**: 后端代码已完成模块化重构，采用分层架构设计。详见 [架构文档](ARCHITECTURE.md)
 
 ## 🚀 快速开始
 
@@ -162,10 +179,23 @@ const WRITE_DELAY = 5 * 60 * 1000 // 5分钟（毫秒）
 
 ### 修改日志保留数量
 
-在 `backend/server.js` 中修改：
+在 `backend/src/config/index.js` 中修改：
 ```javascript
-const MAX_LOGS = 1000 // 最多保留1000条
+export const config = {
+  logs: {
+    maxLogs: 1000 // 最多保留1000条
+  }
+}
 ```
+
+## 📚 文档导航
+
+- 📖 **[架构设计文档](ARCHITECTURE.md)** - 了解系统架构和设计原则
+- 📁 **[项目结构详解](PROJECT_STRUCTURE.md)** - 完整的目录结构和模块说明
+- ⚡ **[快速参考指南](QUICK_REFERENCE.md)** - 常见任务和 API 速查
+- 🔧 **[后端开发文档](backend/README.md)** - 后端模块详细说明
+- 📦 **[部署指南](DEPLOYMENT.md)** - 生产环境部署步骤
+- 📝 **[使用说明](USAGE.md)** - 功能使用教程
 
 ## 📱 设备管理
 
