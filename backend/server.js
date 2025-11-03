@@ -164,6 +164,19 @@ class Log {
 app.use(cors())
 app.use(express.json())
 
+// 静态文件服务（前端打包后的文件）
+app.use(express.static(path.join(__dirname, 'public')))
+
+// 健康检查
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    uptime: process.uptime(),
+    logsCount: logs.length,
+    devicesCount: Object.keys(deviceAliases).length
+  })
+})
+
 // 接收日志
 app.post('/api/logs', (req, res) => {
   try {
@@ -339,6 +352,8 @@ const PORT = 3000
 httpServer.listen(PORT, () => {
   console.log(`🚀 服务器运行在 http://localhost:${PORT}`)
   console.log(`📡 WebSocket 服务已启动`)
+  console.log(`📁 静态文件目录: ${path.join(__dirname, 'public')}`)
+  console.log(`🌐 访问应用: http://localhost:${PORT}`)
   
   // 模拟日志（测试用）
   setInterval(() => {
