@@ -3,14 +3,9 @@
  * 确保在关闭前保存所有数据
  */
 
-export function setupGracefulShutdown(persistenceService, logService, deviceService, logSimulator) {
+export function setupGracefulShutdown(persistenceService, logService, deviceService) {
   const gracefulShutdown = (signal) => {
     console.log(`\n🛑 收到 ${signal} 信号，正在保存数据...`)
-    
-    // 停止日志模拟器
-    if (logSimulator) {
-      logSimulator.stop()
-    }
     
     // 清理持久化服务的定时器
     persistenceService.cleanup()

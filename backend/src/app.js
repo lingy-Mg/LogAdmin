@@ -20,6 +20,8 @@ export function createApp() {
 
   // 静态文件服务（前端打包后的文件）
   const publicPath = path.join(__dirname, '../', config.paths.publicDir)
+
+
   app.use(express.static(publicPath))
 
   // 健康检查

@@ -40,8 +40,8 @@ export function createDeviceRoutes(logService, deviceService, persistenceService
       const { deviceId, alias } = req.body
       const result = deviceService.setAlias(deviceId, alias)
       
-      // 安排延迟写入
-      persistenceService.scheduleWriteDeviceAliases(deviceService.getAllAliases())
+      // 立即写入文件（不使用防抖）
+      persistenceService.writeDeviceAliases(deviceService.getAllAliases())
       
       // 通知所有客户端更新设备别名
       io.emit('device:alias:update', result)
@@ -80,7 +80,8 @@ export function createDeviceRoutes(logService, deviceService, persistenceService
       const existed = deviceService.deleteAlias(deviceId)
       
       if (existed) {
-        persistenceService.scheduleWriteDeviceAliases(deviceService.getAllAliases())
+        // 立即写入文件
+        persistenceService.writeDeviceAliases(deviceService.getAllAliases())
         io.emit('device:alias:update', { deviceId, alias: null })
         console.log(`📱 删除设备别名: ${deviceId}`)
       }

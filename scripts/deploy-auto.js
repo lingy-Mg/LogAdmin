@@ -210,20 +210,21 @@ async function step6CreatePackage() {
 // 步骤 7: 上传到服务器
 async function step7Upload() {
   console.log('🚢 [7/10] 上传到服务器...');
-  const sshOptions = `-i "${config.keyPath}" -p ${config.port} -o StrictHostKeyChecking=no`;
+  const sshOptions = `-i "${config.keyPath}" -o StrictHostKeyChecking=no`;
+  const scpOptions = `-i "${config.keyPath}" -P ${config.port} -o StrictHostKeyChecking=no`;
   const sshTarget = `${config.user}@${config.host}`;
   const deployPackage = path.join(__dirname, '../logadmin-deploy.tar.gz');
   
   try {
     // 创建远程目录
     console.log('   创建远程目录...');
-    execSync(`ssh ${sshOptions} ${sshTarget} "mkdir -p ${config.remotePath}"`, {
+    execSync(`ssh ${sshOptions} -p ${config.port} ${sshTarget} "mkdir -p ${config.remotePath}"`, {
       stdio: 'pipe'
     });
 
     // 上传部署包
     console.log('   上传部署包...');
-    execSync(`scp ${sshOptions} "${deployPackage}" ${sshTarget}:${config.remotePath}/`, {
+    execSync(`scp ${scpOptions} "${deployPackage}" ${sshTarget}:${config.remotePath}/`, {
       stdio: 'inherit'
     });
     
@@ -235,27 +236,28 @@ async function step7Upload() {
 
 // 步骤 8: 部署到服务器
 async function step8Deploy() {
-  console.log('⚙️  [8/10] 在服务器上部署...');
-  const sshOptions = `-i "${config.keyPath}" -p ${config.port} -o StrictHostKeyChecking=no`;
+  console.log('⚙️  [8/10] 部署文件到服务器...');
+  const sshOptions = `-i "${config.keyPath}" -o StrictHostKeyChecking=no`;
   const sshTarget = `${config.user}@${config.host}`;
+  const sshPort = `-p ${config.port}`;
   
   try {
-    const deployCommands = [
+    // 解压文件
+    console.log('   解压部署包...');
+    const extractCommands = [
       `cd ${config.remotePath}`,
-      'echo "解压文件..."',
       'tar -xzf logadmin-deploy.tar.gz',
       'rm logadmin-deploy.tar.gz',
-      'cd backend',
-      'echo "安装依赖..."',
-      'npm install --production --quiet',
-      'echo "部署完成"'
+      'echo "✓ 文件已部署到服务器"'
     ].join(' && ');
 
-    execSync(`ssh ${sshOptions} ${sshTarget} "${deployCommands}"`, {
-      stdio: 'inherit'
+    execSync(`ssh ${sshOptions} ${sshPort} ${sshTarget} "${extractCommands}"`, {
+      stdio: 'pipe'
     });
     
-    console.log('   ✅ 服务器部署完成\n');
+    console.log('   ✅ 文件部署完成\n');
+    console.log('   ℹ️  提示: 请手动在容器中执行以下命令安装依赖:');
+    console.log(`   docker exec ${config.dockerContainer} sh -c "cd /app/backend && npm install --production"\n`);
   } catch (error) {
     throw new Error('服务器部署失败: ' + error.message);
   }
@@ -264,11 +266,12 @@ async function step8Deploy() {
 // 步骤 9: 重启容器
 async function step9RestartContainer() {
   console.log('🐳 [9/10] 重启 Docker 容器...');
-  const sshOptions = `-i "${config.keyPath}" -p ${config.port} -o StrictHostKeyChecking=no`;
+  const sshOptions = `-i "${config.keyPath}" -o StrictHostKeyChecking=no`;
   const sshTarget = `${config.user}@${config.host}`;
+  const sshPort = `-p ${config.port}`;
   
   try {
-    execSync(`ssh ${sshOptions} ${sshTarget} "docker restart ${config.dockerContainer}"`, {
+    execSync(`ssh ${sshOptions} ${sshPort} ${sshTarget} "docker restart ${config.dockerContainer}"`, {
       stdio: 'pipe'
     });
     
@@ -285,12 +288,13 @@ async function step9RestartContainer() {
 // 步骤 10: 验证部署
 async function step10Verify() {
   console.log('✓  [10/10] 验证部署...');
-  const sshOptions = `-i "${config.keyPath}" -p ${config.port} -o StrictHostKeyChecking=no`;
+  const sshOptions = `-i "${config.keyPath}" -o StrictHostKeyChecking=no`;
   const sshTarget = `${config.user}@${config.host}`;
+  const sshPort = `-p ${config.port}`;
   
   try {
     // 检查容器状态
-    const result = execSync(`ssh ${sshOptions} ${sshTarget} "docker ps --filter name=${config.dockerContainer} --format '{{.Status}}'"`, {
+    const result = execSync(`ssh ${sshOptions} ${sshPort} ${sshTarget} "docker ps --filter name=${config.dockerContainer} --format '{{.Status}}'"`, {
       encoding: 'utf-8'
     }).trim();
     

@@ -39,7 +39,7 @@
         <!-- 消息内容 -->
         <div class="detail-section">
           <h4 class="section-title">消息内容</h4>
-          <div class="message-box">{{ log.message || log.msg }}</div>
+          <pre class="message-box">{{ log.message || log.msg }}</pre>
         </div>
 
         <!-- Unity 日志特有字段 -->
@@ -68,7 +68,7 @@
           <h4 class="section-title">扩展信息</h4>
           <div v-for="(value, key) in log.extra" :key="key" class="detail-item">
             <span class="item-label">{{ key }}:</span>
-            <span class="item-value">{{ formatValue(value) }}</span>
+            <pre class="item-value-pre">{{ formatValue(value) }}</pre>
           </div>
         </div>
 
@@ -214,6 +214,33 @@ const deviceAlias = computed(() => {
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
 }
 
+.item-value-pre {
+  flex: 1;
+  font-size: 13px;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.item-value-pre::-webkit-scrollbar {
+  width: 4px;
+}
+
+.item-value-pre::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 2px;
+}
+
+.item-value-pre::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 2px;
+}
+
 .item-value.device-id {
   color: #a78bfa;
   font-weight: 600;
@@ -227,8 +254,27 @@ const deviceAlias = computed(() => {
   font-size: 13px;
   line-height: 1.6;
   color: #cbd5e1;
-  word-break: break-word;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.message-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-box::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 3px;
+}
+
+.message-box::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
 }
 
 .json-box {

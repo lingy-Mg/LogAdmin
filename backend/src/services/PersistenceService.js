@@ -103,16 +103,18 @@ export class PersistenceService {
    * 立即写入日志到文件
    */
   writeLogs(logs) {
-    if (!this.hasChanges && !logs) {
+    // 如果没有传入 logs 参数且没有变化，跳过写入
+    if (logs === undefined && !this.hasChanges) {
       console.log('📝 日志没有变化，跳过写入')
       return
     }
     
     try {
-      const data = JSON.stringify(logs || this.logsToWrite, null, 2)
+      const dataToWrite = logs !== undefined ? logs : this.logsToWrite
+      const data = JSON.stringify(dataToWrite, null, 2)
       fs.writeFileSync(this.logFilePath, data, 'utf-8')
       this.hasChanges = false
-      console.log(`💾 成功写入 ${(logs || this.logsToWrite).length} 条日志到文件`)
+      console.log(`💾 成功写入 ${dataToWrite.length} 条日志到文件: ${this.logFilePath}`)
     } catch (error) {
       console.error('❌ 写入日志文件失败:', error.message)
     }

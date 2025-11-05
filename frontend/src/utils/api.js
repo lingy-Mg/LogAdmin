@@ -26,7 +26,7 @@ export async function clearLogsAPI() {
 }
 
 /**
- * 保存设备别名
+ * 保存设备别名（立即写入文件）
  */
 export async function saveDeviceAliasAPI(deviceId, alias) {
   try {

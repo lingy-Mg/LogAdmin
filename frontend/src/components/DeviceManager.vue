@@ -13,7 +13,7 @@
         <el-table-column label="设备别名">
           <template #default="scope">
             <el-input v-model="scope.row.alias" placeholder="输入设备别名" size="small"
-              @blur="handleSaveAlias(scope.row)" @keyup.enter="handleSaveAlias(scope.row)">
+              @keyup.enter="handleSaveAlias(scope.row)">
               <template #append>
                 <el-button size="small" @click="handleSaveAlias(scope.row)">保存</el-button>
               </template>

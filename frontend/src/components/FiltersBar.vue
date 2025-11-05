@@ -1,47 +1,42 @@
 <template>
   <section class="filters-bar">
-    <el-form :inline="true" label-width="56px" class="filters-form">
-      <el-form-item label="设备">
+    <div class="filters-form">
+      <div class="filter-item">
+        <label class="filter-label">设备</label>
         <el-select :model-value="filters.deviceId" @update:model-value="$emit('update:deviceId', $event)"
-          placeholder="全部设备" clearable filterable size="small" style="min-width: 220px">
+          placeholder="全部设备" clearable filterable size="small" class="filter-select filter-select-device">
           <el-option v-for="device in deviceList" :key="device.deviceId" :label="device.alias || device.deviceId"
             :value="device.deviceId" />
         </el-select>
-      </el-form-item>
+      </div>
 
-      <el-form-item label="级别">
+      <div class="filter-item">
+        <label class="filter-label">级别</label>
         <el-select :model-value="filters.level" @update:model-value="$emit('update:level', $event)"
-          placeholder="全部级别" clearable size="small" style="min-width: 160px">
-          <el-option label="DEBUG" value="DEBUG">
-            <span class="level-badge debug">DEBUG</span>
-          </el-option>
-          <el-option label="INFO" value="INFO">
-            <span class="level-badge info">INFO</span>
-          </el-option>
-          <el-option label="WARN" value="WARN">
-            <span class="level-badge warn">WARN</span>
-          </el-option>
-          <el-option label="ERROR" value="ERROR">
-            <span class="level-badge error">ERROR</span>
-          </el-option>
+          placeholder="全部级别" clearable size="small" class="filter-select filter-select-level">
+          <el-option label="DEBUG" value="DEBUG" />
+          <el-option label="INFO" value="INFO" />
+          <el-option label="WARN" value="WARN" />
+          <el-option label="ERROR" value="ERROR" />
         </el-select>
-      </el-form-item>
+      </div>
 
-      <el-form-item label="搜索">
+      <div class="filter-item filter-item-search">
+        <label class="filter-label">搜索</label>
         <el-input :model-value="filters.keyword" @update:model-value="$emit('update:keyword', $event)"
-          placeholder="关键词..." clearable size="small" style="min-width: 280px">
+          placeholder="关键词..." clearable size="small" class="filter-input">
           <template #prefix>
             <el-icon>
               <Search />
             </el-icon>
           </template>
         </el-input>
-      </el-form-item>
+      </div>
 
-      <el-form-item>
+      <div class="filter-actions">
         <el-button size="small" @click="$emit('reset')">重置</el-button>
-      </el-form-item>
-    </el-form>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -77,22 +72,49 @@ defineEmits(['update:deviceId', 'update:level', 'update:keyword', 'reset'])
   border: 1px solid rgba(148, 163, 184, 0.1);
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
-/* 表单项样式 */
-.filters-form :deep(.el-form-item) {
-  margin-bottom: 0;
+/* 筛选项容器 */
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.filters-form :deep(.el-form-item__label) {
+.filter-item-search {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* 标签样式 */
+.filter-label {
   color: #cbd5e1;
-  line-height: 32px;
+  font-size: 14px;
+  white-space: nowrap;
+  user-select: none;
 }
 
-.filters-form :deep(.el-form-item__content) {
-  line-height: 32px;
+/* 下拉框宽度 */
+.filter-select-device {
+  width: 220px;
+}
+
+.filter-select-level {
+  width: 160px;
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* 操作按钮区域 */
+.filter-actions {
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* 输入框样式 */
@@ -165,35 +187,15 @@ defineEmits(['update:deviceId', 'update:level', 'update:keyword', 'reset'])
   color: #e2e8f0;
 }
 
-.level-badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.level-badge.debug {
-  background: #1e293b;
-  color: #94a3b8;
-  border: 1px solid #475569;
-}
-
-.level-badge.info {
-  background: #064e3b;
-  color: #6ee7b7;
-  border: 1px solid #059669;
-}
-
-.level-badge.warn {
-  background: #78350f;
-  color: #fcd34d;
-  border: 1px solid #f59e0b;
-}
-
-.level-badge.error {
-  background: #7f1d1d;
-  color: #fca5a5;
-  border: 1px solid #dc2626;
+/* 响应式布局 */
+@media (max-width: 1200px) {
+  .filters-form {
+    flex-wrap: wrap;
+  }
+  
+  .filter-item-search {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
 }
 </style>

@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "pnpm install && node src/index.js",
+    "start:prod": "pnpm install --prod && cross-env NODE_ENV=production node src/index.js",
     "dev": "node --watch src/index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.6.1",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3"
   }
 }
