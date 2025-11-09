@@ -1,230 +1,426 @@
-# LogAdmin - 实时日志管理系统
+<div align="center">
 
-一个基于 Vue 3 + Node.js 的实时日志管理系统，支持 WebSocket 实时推送、设备管理、日志过滤等功能。
+# 📝 LogAdmin
+
+<p align="center">
+  <strong>现代化的实时日志管理平台</strong>
+</p>
+
+<p align="center">
+  优雅 · 高效 · 实时 · 开箱即用
+</p>
+
+<p align="center">
+  <a href="#✨-核心特性">特性</a> •
+  <a href="#🚀-快速开始">快速开始</a> •
+  <a href="#📖-文档">文档</a> •
+  <a href="#🎯-使用场景">使用场景</a> •
+  <a href="#🤝-参与贡献">贡献</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Vue-3.x-brightgreen" alt="Vue 3">
+  <img src="https://img.shields.io/badge/Node.js-18+-green" alt="Node.js">
+  <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
+  <img src="https://img.shields.io/badge/PRs-welcome-orange" alt="PRs Welcome">
+</p>
+
+</div>
+
+---
+
+## 🎬 项目简介
+
+**LogAdmin** 是一个基于 Vue 3 + Node.js 构建的**现代化实时日志管理系统**，专为开发者和运维人员打造。
+
+🎯 **解决什么问题？**
+- ❌ 传统日志查看繁琐，需要 SSH 登录服务器
+- ❌ 多设备日志分散，难以统一管理
+- ❌ 日志实时性差，无法及时发现问题
+- ❌ 缺少可视化界面，体验不佳
+
+✅ **LogAdmin 的解决方案**
+- ⚡ **WebSocket 实时推送** - 毫秒级日志更新，零延迟
+- 🎨 **精美终端界面** - 深色主题，专业开发者体验
+- 🔍 **智能搜索过滤** - 多维度筛选，快速定位问题
+- � **设备统一管理** - 多设备日志集中展示
+- 💾 **智能持久化** - 防抖写入，性能优化
 
 ## ✨ 核心特性
 
-- 🔄 **实时日志推送** - 通过 WebSocket 实现零延迟的日志流
-- 🎨 **精美界面** - 深色主题，终端风格显示
-- 🏷️ **设备管理** - 支持为设备设置别名，方便识别
-- 🔍 **强大过滤** - 按设备、级别、关键词过滤日志
-- 💾 **智能持久化** - 5分钟防抖写入，避免频繁IO
-- 📊 **实时统计** - 各级别日志数量统计
-- 🎯 **关键词高亮** - 搜索词黄色高亮显示
+### � 实时性能
+
+- **WebSocket 长连接** - 日志推送延迟 < 10ms
+- **自动滚动模式** - 新日志自动定位，支持一键暂停
+- **批量日志支持** - 单条/数组批量接收，高并发场景友好
+
+### 🎨 用户体验
+
+- **🌙 深色终端主题** - 专业开发者风格界面
+- **🎯 智能高亮** - 关键词黄色高亮，一眼定位
+- **⚡ 快捷键支持** - ESC 快速清空，效率翻倍
+- **📊 实时统计面板** - INFO/WARN/ERROR 数量实时更新
+- **💡 智能展开** - 长日志自动折叠，点击展开
+
+### 🔧 开发友好
+
+- **📡 RESTful API** - 标准化接口设计
+- **� 多种接入方式** - HTTP/WebSocket 双通道
+- **📦 开箱即用** - 零配置启动，5分钟上手
+- **🛠️ 完整文档** - 架构设计 + API 参考 + 使用教程
+
+### 🏗️ 架构设计
+
+- **🧩 模块化架构** - 清晰的分层设计，易扩展
+- **💾 智能持久化** - 5分钟防抖写入，避免频繁 IO
+- **🔄 优雅关闭** - 进程退出时自动保存数据
+- **🎯 错误处理** - 完善的异常捕获机制
 
 ## 🛠️ 技术栈
 
-### 前端
-- Vue 3 (Composition API)
-- Vite
-- Element Plus
-- Socket.IO Client
-- Day.js
-
-### 后端
-- Node.js
-- Express
-- Socket.IO
-- 文件系统持久化
-
-## 📦 项目结构
-
-```
-LogAdmin/
-├── backend/                      # 后端服务（已模块化重构 ✨）
-│   ├── src/                      # 源代码目录
-│   │   ├── config/              # 配置模块
-│   │   ├── models/              # 数据模型
-│   │   ├── services/            # 业务服务层
-│   │   ├── routes/              # 路由模块
-│   │   ├── websocket/           # WebSocket 模块
-│   │   ├── utils/               # 工具函数
-│   │   ├── app.js               # Express 应用配置
-│   │   └── index.js             # 应用入口
-│   ├── server.js                # 旧版服务器（保留）
-│   ├── public/                  # 前端构建产物
-│   ├── package.json
-│   ├── logs-data.json           # 日志数据（运行时生成）
-│   └── device-aliases.json      # 设备别名（运行时生成）
-├── frontend/                     # 前端应用
-│   ├── src/
-│   │   ├── App.vue              # 主应用组件
-│   │   └── main.js              # 入口文件
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-├── scripts/                      # 构建脚本
-├── prompts/                      # 开发提示词
-├── ARCHITECTURE.md               # 架构设计文档 📚
-├── PROJECT_STRUCTURE.md          # 项目结构详解 📚
-├── QUICK_REFERENCE.md            # 快速参考指南 📚
-└── README.md
-```
-
-> 💡 **新架构说明**: 后端代码已完成模块化重构，采用分层架构设计。详见 [架构文档](ARCHITECTURE.md)
+<table>
+  <tr>
+    <th>前端</th>
+    <th>后端</th>
+    <th>工具链</th>
+  </tr>
+  <tr>
+    <td>
+      • Vue 3 (Composition API)<br>
+      • Vite 5<br>
+      • Element Plus<br>
+      • Socket.IO Client<br>
+      • Day.js
+    </td>
+    <td>
+      • Node.js 18+<br>
+      • Express 4<br>
+      • Socket.IO 4<br>
+      • ES Modules<br>
+      • File System
+    </td>
+    <td>
+      • pnpm (包管理)<br>
+      • ESLint (代码检查)<br>
+      • Git (版本控制)<br>
+      • 自动化部署脚本
+    </td>
+  </tr>
+</table>
 
 ## 🚀 快速开始
 
-### 1. 安装依赖
+### 📋 前置要求
 
-**后端：**
+- Node.js >= 18.0.0
+- pnpm >= 8.0.0 (或 npm >= 9.0.0)
+
+### ⚡ 一键启动
+
 ```bash
-cd backend
-npm install
+# 克隆项目
+git clone https://github.com/lingy-Mg/LogAdmin.git
+cd LogAdmin
+
+# 安装依赖
+pnpm install:all
+
+# 启动后端 (端口 3000)
+pnpm dev:backend
+
+# 启动前端 (端口 5173)
+pnpm dev:frontend
 ```
 
-**前端：**
+### 🌐 访问应用
+
+打开浏览器访问：**http://localhost:5173**
+
+### 📤 发送测试日志
+
 ```bash
-cd frontend
-npm install
-```
-
-### 2. 启动服务
-
-**后端（端口 3000）：**
-```bash
-cd backend
-npm start
-```
-
-**前端（端口 5173）：**
-```bash
-cd frontend
-npm run dev
-```
-
-### 3. 访问应用
-
-打开浏览器访问：http://localhost:5173
-
-## 📝 API 接口
-
-### 日志管理
-
-- `POST /api/logs` - 接收新日志
-- `GET /api/logs` - 查询日志列表
-- `DELETE /api/logs` - 清空所有日志
-- `POST /api/logs/save` - 手动保存日志到文件
-- `GET /api/logs/status` - 获取保存状态
-
-### 设备管理
-
-- `GET /api/devices` - 获取设备列表
-- `GET /api/devices/aliases` - 获取所有设备别名
-- `POST /api/devices/alias` - 设置设备别名
-- `POST /api/devices/aliases/batch` - 批量设置设备别名
-- `DELETE /api/devices/alias/:deviceId` - 删除设备别名
-
-## 📤 发送日志示例
-
-### cURL
-```bash
+# 单条日志
 curl -X POST http://localhost:3000/api/logs \
   -H "Content-Type: application/json" \
   -d '{
-    "deviceId": "device-001",
-    "level": "INFO",
-    "message": "系统启动成功"
+    "level": "info",
+    "message": "应用启动成功 🚀",
+    "deviceId": "server-01"
   }'
+
+# 批量日志
+curl -X POST http://localhost:3000/api/logs \
+  -H "Content-Type: application/json" \
+  -d '[
+    {"level": "info", "message": "用户登录", "deviceId": "app-01"},
+    {"level": "warn", "message": "内存使用率 85%", "deviceId": "app-01"},
+    {"level": "error", "message": "连接超时", "deviceId": "app-02"}
+  ]'
 ```
 
-### PowerShell
-```powershell
-$body = @{
-    deviceId = "device-001"
-    level = "ERROR"
-    message = "连接超时"
-} | ConvertTo-Json
+## 🎯 使用场景
 
-Invoke-RestMethod -Uri "http://localhost:3000/api/logs" -Method POST -Body $body -ContentType "application/json"
-```
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <h3>🖥️ 后端开发</h3>
+      <p>实时监控服务日志<br>快速定位系统异常</p>
+    </td>
+    <td align="center" width="25%">
+      <h3>📱 移动应用</h3>
+      <p>收集设备崩溃日志<br>追踪用户行为轨迹</p>
+    </td>
+    <td align="center" width="25%">
+      <h3>🎮 游戏开发</h3>
+      <p>Unity/Unreal 日志<br>实时调试游戏逻辑</p>
+    </td>
+    <td align="center" width="25%">
+      <h3>🔬 IoT 设备</h3>
+      <p>多设备集中管理<br>状态监控和告警</p>
+    </td>
+  </tr>
+</table>
 
-### JavaScript
+## 📖 文档
+
+### 📚 完整文档
+
+| 文档 | 描述 |
+|------|------|
+| 📖 [架构设计](ARCHITECTURE.md) | 系统架构和设计原则 |
+| 📁 [项目结构](PROJECT_STRUCTURE.md) | 目录结构和模块说明 |
+| ⚡ [快速参考](QUICK_REFERENCE.md) | API 速查和常见任务 |
+| 🔧 [后端开发](backend/README.md) | 后端模块详细文档 |
+| 🎨 [前端开发](frontend/ARCHITECTURE.md) | 前端架构和组件 |
+
+### � API 接口
+
+#### 日志管理
+
 ```javascript
-fetch('http://localhost:3000/api/logs', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    deviceId: 'device-001',
-    level: 'WARN',
-    message: '内存使用率: 85%'
-  })
-})
+POST   /api/logs          // 接收日志 (支持单条/数组)
+GET    /api/logs          // 查询日志列表
+DELETE /api/logs          // 清空所有日志
+POST   /api/logs/save     // 手动保存日志
+GET    /api/logs/status   // 获取保存状态
 ```
 
-## 🎨 日志级别
+#### 设备管理
 
-系统支持以下日志级别，每个级别有不同的颜色标识：
-
-- **DEBUG** 🔵 - 灰色 (#888888)
-- **INFO** 🟢 - 青绿色 (#4EC9B0)
-- **WARN** 🟠 - 橙色 (#FFA500)
-- **ERROR** 🔴 - 红色 (#F44747)
-
-## 💾 数据持久化
-
-- **延迟写入机制**：数据变动后5分钟才写入硬盘
-- **防抖处理**：5分钟内多次变动只写入一次
-- **优雅关闭**：服务器关闭时自动保存所有数据
-- **自动加载**：启动时自动加载历史数据
-
-## 🔧 配置
-
-### 修改延迟写入时间
-
-在 `backend/server.js` 中修改：
 ```javascript
-const WRITE_DELAY = 5 * 60 * 1000 // 5分钟（毫秒）
+GET    /api/devices                    // 获取设备列表
+GET    /api/devices/aliases            // 获取设备别名
+POST   /api/devices/alias              // 设置设备别名
+POST   /api/devices/aliases/batch      // 批量设置别名
+DELETE /api/devices/alias/:deviceId    // 删除设备别名
 ```
 
-### 修改日志保留数量
+### � 日志格式
 
-在 `backend/src/config/index.js` 中修改：
+```typescript
+interface LogEntry {
+  level: 'debug' | 'info' | 'warn' | 'error';  // 日志级别
+  message: string;                              // 日志内容 (支持换行符)
+  deviceId: string;                             // 设备标识
+  timestamp?: string;                           // 时间戳 (可选,服务器会自动添加)
+  extra?: Record<string, any>;                  // 扩展字段 (可选)
+}
+```
+
+## 🎨 界面预览
+
+### 主界面
+
+- 🎨 **深色终端主题** - 专业开发者体验
+- 📊 **实时统计面板** - 各级别日志数量
+- 🔍 **多维度筛选** - 设备/级别/关键词
+- ⚡ **自动滚动模式** - 实时跟踪最新日志
+
+### 日志详情
+
+- 📋 **完整信息展示** - 时间/级别/设备/内容
+- 🔤 **换行符支持** - 多行日志完美显示
+- 📦 **扩展字段** - 自定义字段展示
+- 📄 **JSON 原始数据** - 开发调试友好
+
+### 设备管理
+
+- 📱 **设备列表** - 自动发现所有设备
+- ✏️ **别名管理** - 为设备设置友好名称
+- 💾 **即时保存** - 修改后立即持久化
+
+## ⚙️ 配置说明
+
+### 环境变量
+
+```bash
+# 后端配置
+PORT=3000                    # 服务端口
+NODE_ENV=production          # 运行环境
+
+# 前端配置 (可选)
+VITE_API_URL=http://localhost:3000    # 后端地址
+VITE_WS_URL=http://localhost:3000     # WebSocket 地址
+```
+
+### 自定义配置
+
 ```javascript
+// backend/src/config/index.js
 export const config = {
+  server: {
+    port: 3000,
+    env: process.env.NODE_ENV || 'development'
+  },
   logs: {
-    maxLogs: 1000 // 最多保留1000条
+    maxLogs: 1000,              // 最大日志条数
+    writeDelay: 5 * 60 * 1000   // 持久化延迟 (5分钟)
   }
 }
 ```
 
-## 📚 文档导航
+## � 最佳实践
 
-- 📖 **[架构设计文档](ARCHITECTURE.md)** - 了解系统架构和设计原则
-- 📁 **[项目结构详解](PROJECT_STRUCTURE.md)** - 完整的目录结构和模块说明
-- ⚡ **[快速参考指南](QUICK_REFERENCE.md)** - 常见任务和 API 速查
-- 🔧 **[后端开发文档](backend/README.md)** - 后端模块详细说明
-- 📦 **[部署指南](DEPLOYMENT.md)** - 生产环境部署步骤
-- 📝 **[使用说明](USAGE.md)** - 功能使用教程
+### 1️⃣ 日志级别使用建议
 
-## 📱 设备管理
+- **DEBUG** 🔵 - 详细调试信息，生产环境可关闭
+- **INFO** 🟢 - 正常运行信息，如启动/停止/配置加载
+- **WARN** 🟠 - 警告信息，需要关注但不影响运行
+- **ERROR** 🔴 - 错误信息，需要立即处理
 
-1. 点击顶部的 **📱 设备管理** 按钮
-2. 在弹出的对话框中为设备设置别名
-3. 输入别名后点击**保存**或按回车键
-4. 日志中的设备ID会自动显示为别名
+### 2️⃣ 设备命名规范
 
-## 🔍 日志过滤
+```javascript
+// 推荐格式: 类型-环境-编号
+deviceId: "server-prod-01"    // 生产服务器1
+deviceId: "app-dev-ios"       // iOS 开发应用
+deviceId: "iot-sensor-001"    // IoT 传感器001
+```
 
-- **设备过滤**：支持按设备ID或别名搜索（可输入可下拉）
-- **级别过滤**：选择特定日志级别
-- **关键词搜索**：在消息中搜索关键词，自动高亮
+### 3️⃣ 批量日志优化
 
-## ⚡ 特色功能
+```javascript
+// ✅ 推荐: 批量发送
+const logs = collectLogs();  // 收集100条日志
+await sendBatch(logs);       // 一次性发送
 
-- **自动滚动**：新日志自动滚动到底部，可暂停
-- **实时统计**：顶部显示各级别日志数量
-- **WebSocket连接状态**：实时显示连接状态
-- **自动模拟日志**：开发模式下每3秒生成测试日志
+// ❌ 避免: 频繁单条发送
+for (const log of logs) {
+  await sendSingle(log);     // 100次请求
+}
+```
 
-## 📄 许可证
+## 🚢 生产部署
 
-MIT
+### Docker 部署
 
-## 🤝 贡献
+```dockerfile
+# Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install --production
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+```
 
-欢迎提交 Issue 和 Pull Request！
+```bash
+# 构建镜像
+docker build -t logadmin .
 
-## 📧 联系方式
+# 运行容器
+docker run -d -p 3000:3000 \
+  -v $(pwd)/logs-data.json:/app/backend/logs-data.json \
+  -v $(pwd)/device-aliases.json:/app/backend/device-aliases.json \
+  logadmin
+```
 
-如有问题或建议，请提交 Issue。
+### 自动化部署
+
+```bash
+# 构建前端
+pnpm build
+
+# 部署到服务器
+pnpm deploy
+```
+
+## 🤝 参与贡献
+
+欢迎所有形式的贡献！
+
+### 贡献方式
+
+- � [报告 Bug](https://github.com/lingy-Mg/LogAdmin/issues/new?template=bug_report.md)
+- 💡 [提出新特性](https://github.com/lingy-Mg/LogAdmin/issues/new?template=feature_request.md)
+- 📖 改进文档
+- � 提交 Pull Request
+
+### 开发指南
+
+```bash
+# Fork 项目
+git clone https://github.com/YOUR_USERNAME/LogAdmin.git
+
+# 创建分支
+git checkout -b feature/amazing-feature
+
+# 提交更改
+git commit -m 'Add: 新增某某功能'
+
+# 推送到分支
+git push origin feature/amazing-feature
+
+# 创建 Pull Request
+```
+
+### 代码规范
+
+- 遵循 ESLint 规则
+- 保持代码风格一致
+- 添加必要的注释
+- 编写单元测试
+
+## 📊 项目统计
+
+- ⭐ **Star 支持** - 如果觉得有用，请给个 Star！
+- 🍴 **Fork 改进** - 欢迎 Fork 并提交改进
+- 📝 **Issue 反馈** - 发现问题请及时反馈
+
+## 📄 开源协议
+
+本项目采用 [MIT](LICENSE) 协议开源。
+
+```
+MIT License
+
+Copyright (c) 2025 LogAdmin Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files...
+```
+
+## 🙏 致谢
+
+感谢以下开源项目：
+
+- [Vue.js](https://vuejs.org/) - 渐进式 JavaScript 框架
+- [Element Plus](https://element-plus.org/) - Vue 3 组件库
+- [Socket.IO](https://socket.io/) - 实时通信引擎
+- [Express](https://expressjs.com/) - Node.js Web 框架
+
+## � 联系方式
+
+- 📧 Email: [在此添加邮箱]
+- 💬 Issue: [提交问题](https://github.com/lingy-Mg/LogAdmin/issues)
+- 🌟 Star: [给个 Star](https://github.com/lingy-Mg/LogAdmin)
+
+---
+
+<div align="center">
+
+**⭐ 如果这个项目对你有帮助，请点个 Star 支持一下！⭐**
+
+Made with ❤️ by [LogAdmin Contributors](https://github.com/lingy-Mg/LogAdmin/graphs/contributors)
+
+</div>
